@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.data.vo.v1.PersonVO;
-import br.com.erudio.data.vo.v2.PersonVOV2;
+//import br.com.erudio.data.vo.v2.PersonVOV2;
 import br.com.erudio.services.PersonServices;
 import br.com.erudio.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,11 +34,15 @@ public class PersonController {
 	@Autowired
 	private PersonServices service;
 	
-    @GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+	@GetMapping(
+			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Finds all People", description = "Finds all People",
-	tags = {"People"}, responses = {
+	tags = {"People"}, 
+	responses = {
 			@ApiResponse(description = "Success", responseCode = "200",
-					content = {@Content(mediaType = "application/json", 
+					content = {
+							@Content(
+									mediaType = "application/json", 
 					array = @ArraySchema(schema = @Schema(
 							implementation = PersonVO.class)))}), 
 			@ApiResponse(description = "Bad Request", responseCode = "400", 
@@ -133,9 +137,11 @@ public class PersonController {
 		return ResponseEntity.noContent().build();
 	}	
 	
-	@PostMapping(value = "/v2", consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
-			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+	/**
+	 * @PostMapping(value = "/v2", consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
+	 	produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVOV2 createV2(@RequestBody PersonVOV2 person) {
 		return service.createV2(person);
 	}	
+	*/
 }
